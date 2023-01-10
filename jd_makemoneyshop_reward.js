@@ -131,7 +131,10 @@ async function getExchangequery(){
               console.log('可提现金额 -> ' + data.data.canUseCoinAmount)
               // console.log(data.data.exchangeRuleList)
               if (data.data.cashExchangeRuleList) {
-                for (const vo of data.data.cashExchangeRuleList) {
+                var cashExchangeRuleList = data.data.cashExchangeRuleList.sort((a, b) => {
+                  return -(parseFloat(a.cashoutAmount) - parseFloat(b.cashoutAmount));
+                })
+                for (const vo of cashExchangeRuleList) {
                   // console.log(vo)
                   if (vo.exchangeStatus === 1 && vo.cashoutAmount <= data.data.canUseCoinAmount) {
                     console.log('可提现 -> ', vo.name)
